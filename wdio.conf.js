@@ -122,7 +122,8 @@ exports.config = {
     reporters: ['spec',
         ['allure', {
             outputDir: 'allure-results',
-            disableWebdriverStepsReporting: true,
+            //disableWebdriverStepsReporting: true,
+            disableWebdriverStepsReporting: false,
             // disableWebdriverScreenshotsReporting: true,
             useCucumberStepReporter: false,
         }]],
@@ -243,7 +244,13 @@ exports.config = {
      */
     afterTest: async function (test, context, { error, result, duration, passed, retries }) {
         if (!passed) {
-            await browser.takeScreenshot();
+            //await browser.takeScreenshot();
+            //const fileName = `./screenshots/${new Date().toLocaleString().replace(/[.,:/\s]/g, "_")}_${test.title}.png`
+            //await browser.saveScreenshot(fileName);
+            //addAttachment(test.keyword, fileName, 'image/png' );
+            addAttachment('TESTTEST!!!<img src="https://s.keepmeme.com/files/en_posts/20200908/blurred-surprised-cat-meme-5b734a45210ef3b6657bcbe2831715fa.jpg">')
+            //addAttachment(test.keyword.toUpperCase(),'' );
+
         }
     },
 
@@ -251,15 +258,25 @@ exports.config = {
         if (world.result.status === 'SKIPPED') {
             world.result.status = 'FAILED'
         }
-        console.log({result})
-        console.log(result.passed)
-        console.log(result.passed)
-        console.log(result.passed)
-        addDescription('TESTTESTTEST!!! <script>alert(123)</script>')
+
+        const screenshotData = new Buffer( 
+          await browser.takeScreenshot,
+          'base64'
+          );
+        const htmlData  = new Buffer(
+            await browser.getHTML('*') 
+        )
+        const cookieData = new Buffer (
+            JSON.stringify(await browser.getAllCookies())
+        )
 
         if (!result.passed) {
-            addDescription('TESTTESTTEST!!!<img src="https://s.keepmeme.com/files/en_posts/20200908/blurred-surprised-cat-meme-5b734a45210ef3b6657bcbe2831715fa.jpg">')
+            //addDescription('TESTTESTTEST!!!<img src="https://s.keepmeme.com/files/en_posts/20200908/blurred-surprised-cat-meme-5b734a45210ef3b6657bcbe2831715fa.jpg">')            ;
+            addAttachment('Screenshot', screenshotData, 'image/png' );
+            addAttachment('HTML code', htmlData, 'text/html' );
+            addAttachment('Cookies', cookieData, 'text/plain' );
         }
+
         // await browser.reloadSession();
     },
 

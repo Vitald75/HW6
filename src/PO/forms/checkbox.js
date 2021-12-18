@@ -5,6 +5,7 @@ class Checkbox {
 
     set(value) {
         // add your implementation
+        if (value) $(this.selector).click();
     }
 }
 
