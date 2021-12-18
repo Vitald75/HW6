@@ -24,7 +24,7 @@ Feature: Fill and check User form
       plan : "Education"
       years : 1
       user : "11111@wq"
-      total : 100
+#      total : 100
       description : "some notes"
       suspend : false
       """"""
@@ -36,7 +36,7 @@ Feature: Fill and check User form
       plan : "Premium"
       years : 2
       user : "22222@wq"
-      total : 400
+ #     total : 400
       description : "some notes2"
       suspend : true
       """"""
@@ -48,9 +48,14 @@ Feature: Fill and check User form
       plan : "Enterprise"
       years : 3
       user : "33333@wq"
-      total : 900
+  #    total : 900
       description : "some notes3"
       suspend : false
       """"""
+    When I logout  
+
+Scenario: Check list of Subscribtion
+    When I go to "List of Subscriptions" menu item
+    When I wait for "1" second
 
 
