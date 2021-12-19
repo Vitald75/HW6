@@ -244,12 +244,8 @@ exports.config = {
      */
     afterTest: async function (test, context, { error, result, duration, passed, retries }) {
         if (!passed) {
-            //await browser.takeScreenshot();
-            //const fileName = `./screenshots/${new Date().toLocaleString().replace(/[.,:/\s]/g, "_")}_${test.title}.png`
-            //await browser.saveScreenshot(fileName);
-            //addAttachment(test.keyword, fileName, 'image/png' );
             addAttachment('TESTTEST!!!<img src="https://s.keepmeme.com/files/en_posts/20200908/blurred-surprised-cat-meme-5b734a45210ef3b6657bcbe2831715fa.jpg">')
-            //addAttachment(test.keyword.toUpperCase(),'' );
+            addAttachment(test.keyword.toUpperCase(),'' );
 
         }
     },
@@ -258,23 +254,19 @@ exports.config = {
         if (world.result.status === 'SKIPPED') {
             world.result.status = 'FAILED'
         }
-
-        const screenshotData = new Buffer( 
-          await browser.takeScreenshot,
+        const screenshotData = new Buffer.from( 
+          await browser.takeScreenshot(),
           'base64'
           );
-        const htmlData  = new Buffer(
-            await browser.getHTML('*') 
-        )
-        const cookieData = new Buffer (
-            JSON.stringify(await browser.getAllCookies())
-        )
-
+        const cookiesStr = JSON.stringify(await browser.getAllCookies());
+  
+        //const htmlData = await browser.getHTML('/');
+        
         if (!result.passed) {
             //addDescription('TESTTESTTEST!!!<img src="https://s.keepmeme.com/files/en_posts/20200908/blurred-surprised-cat-meme-5b734a45210ef3b6657bcbe2831715fa.jpg">')            ;
             addAttachment('Screenshot', screenshotData, 'image/png' );
-            addAttachment('HTML code', htmlData, 'text/html' );
-            addAttachment('Cookies', cookieData, 'text/plain' );
+          //  addAttachment('HTML code', htmlData, 'text/html' );
+            addAttachment('Cookies', cookiesStr, 'text/plain' );
         }
 
         // await browser.reloadSession();

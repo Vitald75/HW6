@@ -5,9 +5,9 @@ Feature: Fill and check User form
 
   Scenario Outline: Successful fill User form
     When I go to "Create User" menu item
-    When I wait for "1" second
+   # When I wait for "1" second
     When I fill User form: "<email>" "<password>" "<address1>" "<address2>" "<city>" "<zip>" "<anual>" "<description>"
-    When I wait for "1" second
+  #  When I wait for "1" second
     When I logout
     Examples:
       | email    | password | address1 | address2 | city  | zip    | anual | description |
@@ -18,11 +18,11 @@ Feature: Fill and check User form
 
   Scenario: Successful fill Subscribe form
     When I go to "Create Subscription" menu item
-    When I wait for "1" second
+  #  When I wait for "1" second
     When I fill form:
       """"""
       plan : "Education"
-      years : 1
+      years : "1"
       user : "11111@wq"
 #      total : 100
       description : "some notes"
@@ -30,11 +30,11 @@ Feature: Fill and check User form
       """"""
 
     When I go to "Create Subscription" menu item
-    When I wait for "1" second
+  #  When I wait for "1" second
     When I fill form:
       """"""
       plan : "Premium"
-      years : 2
+      years : "2"
       user : "22222@wq"
  #     total : 400
       description : "some notes2"
@@ -42,11 +42,11 @@ Feature: Fill and check User form
       """"""
 
     When I go to "Create Subscription" menu item
-    When I wait for "1" second
+#    When I wait for "1" second
     When I fill form:
       """"""
       plan : "Enterprise"
-      years : 3
+      years : "3"
       user : "33333@wq"
   #    total : 900
       description : "some notes3"
@@ -57,5 +57,8 @@ Feature: Fill and check User form
 Scenario: Check list of Subscribtion
     When I go to "List of Subscriptions" menu item
     When I wait for "1" second
+    # When I sort table by "User"
+    
+   
 
 
